@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>轨迹展示</title>
+    <!-- 引入Vue.js -->
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.js"></script>
+    <!-- 引入Element UI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入Element UI组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- 引入Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- 引入Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .control-item {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        #map {
+            height: 80vh;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div id="controls">
+            <div class="control-item">
+                <el-upload action="" :auto-upload="false" :on-change="processFile" accept=".csv">
+                    <el-button size="small" type="primary">选择轨迹文件</el-button>
+                </el-upload>
+            </div>
+            <div class="control-item">
+                <el-date-picker v-model="dateRange" type="daterange" range-separator="至" start-placeholder="开始日期"
+                    end-placeholder="结束日期" @change="filterTrackByDate">
+                </el-date-picker>
+            </div>
+            <div class="control-item">
+                <el-slider v-model="sliderValue" @input="updateMarkerOnMap"></el-slider>
+            </div>
+            <div class="control-item">
+                <el-button size="small" type="primary" @click="displayCurrentLocation">显示当前位置</el-button>
+            </div>
+            <div class="control-item">
+                <el-checkbox v-model="showTrack" @change="toggleTrackVisibility">显示轨迹</el-checkbox>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
